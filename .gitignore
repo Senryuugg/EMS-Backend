@@ -175,3 +175,28 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# .NET
+bin/
+obj/
+*.dll
+*.exe
+*.pdb
+*.cache
+*.suo
+*.sln.docstates
+.vs/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temp
+temp_route_data.json

@@ -1,0 +1,71 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: ems_dispatch_mongodb
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_INITDB_DATABASE: ems_dispatch
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - ems_network
+
+  mongodb-express:
+    image: mongo-express:latest
+    container_name: ems_dispatch_mongo_express
+    restart: always
+    ports:
+      - "8081:8081"
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: admin
+      ME_CONFIG_MONGODB_ADMINPASSWORD: password
+      ME_CONFIG_MONGODB_URL: mongodb://admin:password@mongodb:27017/
+      ME_CONFIG_BASICAUTH_USERNAME: admin
+      ME_CONFIG_BASICAUTH_PASSWORD: password
+    depends_on:
+      - mongodb
+    networks:
+      - ems_network
+
+  backend:
+    build:
+      context: .
+      dockerfile: EmsDispatch.Backend/Dockerfile
+    container_name: ems_dispatch_backend
+    restart: always
+    ports:
+      - "5000:80"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+    depends_on:
+      - mongodb
+    networks:
+      - ems_network
+    command: dotnet EmsDispatch.Backend.dll
+
+  ml-service:
+    build:
+      context: .
+      dockerfile: Dockerfile.ml
+    container_name: ems_dispatch_ml_service
+    restart: always
+    ports:
+      - "8000:8000"
+    networks:
+      - ems_network
+    depends_on:
+      - backend
+
+volumes:
+  mongodb_data:
+
+networks:
+  ems_network:
+    driver: bridge
+

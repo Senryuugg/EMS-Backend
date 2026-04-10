@@ -1,0 +1,73 @@
+name: ems_dispatch_mobile
+description: "EMS Dispatcher Mobile App - Real-time emergency medical services dispatch management system."
+
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # HTTP and networking
+  http: ^1.1.0
+  dio: ^5.3.0
+  
+  # State management
+  provider: ^6.0.0
+  get: ^4.6.5
+  
+  # Maps and location
+  google_maps_flutter: ^2.5.0
+  location: ^6.0.0
+  geolocator: ^9.0.2
+  google_maps_flutter_platform_interface: ^2.5.0
+  
+  # Real-time communication
+  signalr_client: ^0.7.1
+  
+  # Secure storage
+  flutter_secure_storage: ^8.0.0
+  
+  # UI and animations
+  flutter_dotenv: ^5.1.0
+  intl: ^0.18.1
+  
+  # Database (local)
+  sqflite: ^2.3.0
+  path_provider: ^2.1.0
+  
+  # JSON serialization
+  json_serializable: ^6.7.1
+  json_annotation: ^4.8.1
+  
+  # Utilities
+  logger: ^2.0.0
+  connectivity_plus: ^5.0.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^3.0.0
+  build_runner: ^2.4.6
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+    - assets/icons/
+    - .env
+
+  fonts:
+    - family: Poppins
+      fonts:
+        - asset: assets/fonts/Poppins-Regular.ttf
+        - asset: assets/fonts/Poppins-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Poppins-SemiBold.ttf
+          weight: 600
