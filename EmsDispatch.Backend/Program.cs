@@ -4,6 +4,8 @@ using Serilog;
 using System.Text;
 using EmsDispatch.Backend.Configuration;
 using EmsDispatch.Backend.Services;
+using EmsDispatch.Backend.Data;
+using EmsDispatch.Backend.Middleware;
 
 var builder = WebApplicationBuilder.CreateBuilder(args);
 
@@ -11,6 +13,7 @@ var builder = WebApplicationBuilder.CreateBuilder(args);
 Log.Logger = new LoggerConfiguration()
     .MinimumLevel.Debug()
     .WriteTo.Console()
+    .WriteTo.File("logs/ems-dispatch-.txt", rollingInterval: RollingInterval.Day)
     .CreateLogger();
 
 builder.Host.UseSerilog();
@@ -21,7 +24,7 @@ if (mongoSettings == null)
     throw new InvalidOperationException("MongoDB settings are not configured");
 
 builder.Services.AddSingleton(mongoSettings);
-builder.Services.AddSingleton<IMongoDbContext, MongoDbContext>();
+builder.Services.AddSingleton<MongoDbContext>();
 
 // JWT Configuration
 var jwtKey = builder.Configuration["Jwt:SecretKey"];
@@ -103,9 +106,30 @@ builder.Services.AddCors(options =>
 // Health Checks
 builder.Services.AddHealthChecks();
 
-var app = builder.CreateBuilder();
+// Swagger
+builder.Services.AddSwaggerGen();
+
+var app = builder.Build();
+
+// Initialize Database with Seed Data
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<MongoDbContext>();
+    var database = dbContext.Database;
+    await MongoDbSeedData.SeedDefaultDataAsync(database);
+    Log.Information("Database seed data initialized");
+}
 
 // Middleware
+if (app.Environment.IsDevelopment())
+{
+    app.UseDeveloperExceptionPage();
+    app.UseSwagger();
+    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "EMS Dispatch API v1"));
+}
+
+app.UseMiddleware<GlobalExceptionHandlingMiddleware>();
+
 app.UseRouting();
 
 app.UseCors("AllowAll");
@@ -118,4 +142,6 @@ app.MapHub<DispatchHub>("/hubs/dispatch");
 app.MapHub<LocationHub>("/hubs/location");
 app.MapHealthChecks("/health");
 
+Log.Information("EMS Dispatch Backend started successfully");
 app.Run();
+
