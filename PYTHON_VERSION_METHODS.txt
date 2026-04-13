@@ -1,0 +1,128 @@
+THREE WAYS TO SELECT PYTHON 3.12 ON WINDOWS
+============================================
+
+┌─────────────────────────────────────────────────────────────┐
+│ METHOD 1: PYTHON LAUNCHER (RECOMMENDED - 30 seconds)        │
+├─────────────────────────────────────────────────────────────┤
+│                                                              │
+│  Step 1: List installed versions                            │
+│  $ py --list-paths                                          │
+│                                                              │
+│  Step 2: Create venv with Python 3.12                       │
+│  $ py -3.12 -m venv venv                                    │
+│                                                              │
+│  Step 3: Activate                                           │
+│  $ venv\Scripts\activate                                    │
+│                                                              │
+│  Step 4: Verify                                             │
+│  $ python --version                                         │
+│  → Should show Python 3.12.x                                │
+│                                                              │
+└─────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────┐
+│ METHOD 2: FULL PATH (45 seconds)                            │
+├─────────────────────────────────────────────────────────────┤
+│                                                              │
+│  Find Python 3.12 path:                                     │
+│  $ where python                                             │
+│                                                              │
+│  Use full path (example):                                   │
+│  $ "C:\Python312\python.exe" -m venv venv                   │
+│                                                              │
+│  Activate:                                                  │
+│  $ venv\Scripts\activate                                    │
+│                                                              │
+│  Verify:                                                    │
+│  $ python --version                                         │
+│                                                              │
+└─────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────┐
+│ METHOD 3: EDIT WINDOWS PATH (2 minutes)                     │
+├─────────────────────────────────────────────────────────────┤
+│                                                              │
+│  1. Press: Win + X → System                                 │
+│  2. Advanced system settings                                │
+│  3. Environment Variables                                   │
+│  4. Edit PATH variable                                      │
+│  5. Move Python 3.12 path to TOP                            │
+│  6. Save and restart command prompt                         │
+│                                                              │
+│  Then run:                                                  │
+│  $ python -m venv venv                                      │
+│  $ venv\Scripts\activate                                    │
+│  $ python --version                                         │
+│                                                              │
+└─────────────────────────────────────────────────────────────┘
+
+WHICH METHOD TO USE?
+====================
+
+✓ Python 3.11-3.14 installed → Use METHOD 1 (Python Launcher)
+✓ Prefer GUI settings        → Use METHOD 3 (Edit PATH)
+✓ Need one-time quick setup  → Use METHOD 1 or 2
+
+RECOMMENDED: METHOD 1 (Python Launcher)
+========================================
+
+Why?
+- Works on Windows by default
+- No need to find installation paths
+- Can specify version number (py -3.12)
+- Cleanest and fastest
+
+Commands to copy-paste:
+
+  py --list-paths
+  cd D:\EMS-Dispatcher-Application
+  py -3.12 -m venv venv
+  venv\Scripts\activate
+  python --version
+  pip install -r requirements.txt
+
+
+COMMON ISSUES & FIXES
+====================
+
+Issue: "py" command not found
+Fix: Python launcher not installed
+Solution: Reinstall Python 3.12, check "Add to PATH"
+
+Issue: python --version shows 3.14, not 3.12
+Fix: venv using wrong Python
+Solution: Delete venv, recreate with: py -3.12 -m venv venv
+
+Issue: Still getting build errors
+Fix: Wrong Python version or old pip cache
+Solution:
+  - Verify: python --version (must be 3.12)
+  - Clear cache: pip cache purge
+  - Reinstall: pip install -r requirements.txt --no-cache-dir
+
+Issue: Cannot find "py" even after reinstall
+Fix: Add Python to PATH manually
+Solution:
+  - Find Python 3.12 installation folder
+  - Add to Windows PATH manually
+  - Restart Command Prompt
+
+
+VERIFY YOUR SETUP
+=================
+
+Run these three commands to confirm Python 3.12 is set up:
+
+1. python --version
+   → Should show: Python 3.12.x (not 3.13 or 3.14)
+
+2. pip --version
+   → Should show path with "Python 3.12"
+
+3. python -c "import sys; print(sys.executable)"
+   → Should show: ...\venv\Scripts\python.exe
+   → Path should include your project's venv folder
+
+If all three show correct output, you're ready!
+
+Next: pip install -r requirements.txt

@@ -1,0 +1,159 @@
+ANSWER: HOW TO SELECT PYTHON 3.12 ON WINDOWS
+==============================================
+
+You have Python 3.11 to 3.14 installed. Here's how to use Python 3.12.
+
+QUICKEST ANSWER (Copy-Paste These Commands)
+===========================================
+
+1. Open Command Prompt
+
+2. Run these commands in order:
+
+   py --list-paths
+   cd D:\EMS-Dispatcher-Application
+   py -3.12 -m venv venv
+   venv\Scripts\activate
+   python --version
+   pip cache purge
+   python -m pip install --upgrade pip
+   pip install -r requirements.txt
+   python ml_api.py
+
+Done! Python 3.12 is now being used.
+
+
+THREE METHODS AVAILABLE
+=======================
+
+METHOD 1: Python Launcher (EASIEST) ✓ RECOMMENDED
+-------------------------------------------------
+Windows has a "py" launcher that finds all Python versions.
+
+  py --list-paths                    # See all versions
+  py -3.12 -m venv venv              # Use Python 3.12
+  venv\Scripts\activate              # Activate
+  python --version                   # Verify
+
+Best for: People with multiple Python versions
+Time: 30 seconds
+
+
+METHOD 2: Full Path (DIRECT)
+----------------------------
+Find Python 3.12 and use its full path.
+
+  where python                       # Find paths
+  "C:\Python312\python.exe" -m venv venv
+  venv\Scripts\activate
+  python --version
+
+Best for: When you know the exact path
+Time: 45 seconds
+
+
+METHOD 3: Edit Windows PATH (PERMANENT)
+---------------------------------------
+Make Python 3.12 the default globally.
+
+  1. Win key + X → System
+  2. Advanced system settings
+  3. Environment Variables
+  4. Edit PATH
+  5. Move Python312 to TOP
+  6. Restart command prompt
+  7. python -m venv venv (uses Python 3.12 now)
+
+Best for: Making Python 3.12 default
+Time: 2 minutes
+
+
+I RECOMMEND METHOD 1 (Python Launcher)
+=====================================
+
+Why?
+- Comes built-in on Windows
+- No need to find paths
+- Works with multiple versions
+- Simple "py -3.12" syntax
+- Fastest and easiest
+
+How to do it:
+
+  py --list-paths
+  
+  (Look for -3.12 line, note the path)
+
+  cd D:\EMS-Dispatcher-Application
+  py -3.12 -m venv venv
+  venv\Scripts\activate
+  python --version
+
+
+VERIFY IT WORKS
+===============
+
+After running above commands:
+
+1. python --version
+   → Must show: Python 3.12.x (not 3.13 or 3.14)
+
+2. pip --version
+   → Must show: pip X.X.X from [...venv...]
+
+3. python -c "import sys; print(sys.executable)"
+   → Must show: [...\venv\Scripts\python.exe]
+
+If all three are correct, you're using Python 3.12!
+
+Then install packages:
+  pip install -r requirements.txt
+
+
+WHAT TO DO IF SOMETHING GOES WRONG
+==================================
+
+"py" command not found?
+→ Python launcher not installed
+→ Reinstall Python 3.12 from python.org
+→ Check "Add Python to PATH"
+→ Restart Command Prompt
+
+python --version shows 3.14 instead of 3.12?
+→ venv not created with Python 3.12
+→ Delete the venv folder
+→ Run: py -3.12 -m venv venv
+→ Activate: venv\Scripts\activate
+
+Still getting build errors?
+→ Wrong Python version in venv
+→ Solution:
+   pip cache purge
+   py -3.12 -m venv venv (recreate)
+   venv\Scripts\activate
+   pip install -r requirements.txt --no-cache-dir
+
+
+DETAILED GUIDES CREATED
+======================
+
+For more information, see:
+- COMPLETE_SETUP.txt (full step-by-step)
+- WINDOWS_PYTHON_VERSION_SELECTION.txt (detailed)
+- PYTHON_VERSION_METHODS.txt (visual comparison)
+- QUICK_PYTHON_SETUP.txt (quick reference)
+
+
+SUMMARY
+=======
+
+You have 4 Python versions installed (3.11-3.14).
+
+To use Python 3.12 specifically:
+
+1. Use Python launcher: py -3.12 -m venv venv
+2. Activate: venv\Scripts\activate
+3. Verify: python --version (must show 3.12)
+4. Install: pip install -r requirements.txt
+
+That's it! All done in 5 minutes.

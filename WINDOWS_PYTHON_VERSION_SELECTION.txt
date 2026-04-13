@@ -1,0 +1,143 @@
+PYTHON VERSION SELECTION GUIDE FOR WINDOWS
+============================================
+
+You have Python 3.11 to 3.14 installed. Here's how to select Python 3.12 for this project.
+
+OPTION 1: Use Python Launcher (BEST for Windows)
+================================================
+
+Python Windows Launcher automatically detects all installed versions.
+
+Step 1: Check installed versions
+---------------------------------
+Open Command Prompt and run:
+  py --list-paths
+
+This shows all Python versions installed.
+
+Step 2: Create virtual environment with Python 3.12
+----------------------------------------------------
+Navigate to project directory:
+  cd D:\EMS-Dispatcher-Application
+
+Create venv with Python 3.12:
+  py -3.12 -m venv venv
+
+Step 3: Activate virtual environment
+------------------------------------
+  venv\Scripts\activate
+
+Step 4: Verify you're using Python 3.12
+---------------------------------------
+  python --version
+
+Should show: Python 3.12.x
+
+Step 5: Install requirements
+----------------------------
+  pip install -r requirements.txt
+
+Done! Now it uses Python 3.12 specifically.
+
+
+OPTION 2: Using Full Path (Direct Method)
+==========================================
+
+Step 1: Find Python 3.12 installation
+-------------------------------------
+Open Command Prompt and run:
+  where python
+
+This shows all Python paths.
+
+Step 2: Create venv with specific path
+--------------------------------------
+Example (adjust path if different):
+  "C:\Users\YourUsername\AppData\Local\Programs\Python\Python312\python.exe" -m venv venv
+
+Step 3: Activate and verify
+----------------------------
+  venv\Scripts\activate
+  python --version
+
+
+OPTION 3: Modify PATH Environment Variable
+===========================================
+
+Step 1: Open Environment Variables
+-----------------------------------
+1. Press Win + X
+2. Click "System"
+3. Click "Advanced system settings"
+4. Click "Environment Variables"
+
+Step 2: Edit PATH
+-----------------
+1. Select "Path" under "User variables"
+2. Click "Edit"
+3. Move Python 3.12 path to TOP
+   (Example: C:\Users\YourUsername\AppData\Local\Programs\Python\Python312)
+4. Click OK
+
+Step 3: Restart Command Prompt and verify
+------------------------------------------
+  python --version
+
+
+QUICK COPY-PASTE COMMANDS
+=========================
+
+For Python 3.12 with virtual environment:
+
+  py --list-paths
+  cd D:\EMS-Dispatcher-Application
+  py -3.12 -m venv venv
+  venv\Scripts\activate
+  python --version
+  pip install -r requirements.txt
+  python ml_api.py
+
+
+TROUBLESHOOTING
+===============
+
+If "py" command not found:
+  - Python launcher not installed
+  - Reinstall Python 3.12 and check "Add Python to PATH"
+
+If "python --version" shows wrong version:
+  - Use full path: "C:\path\to\Python312\python.exe" --version
+  - Or use: py -3.12 --version
+
+If pip still compiles packages:
+  - Delete venv folder
+  - Create fresh venv with correct version
+  - Clear pip cache: pip cache purge
+  - Try again: pip install -r requirements.txt
+
+
+VERIFY SETUP IS CORRECT
+=======================
+
+After installation, run these commands:
+
+  python --version
+  (Should show: Python 3.12.x)
+
+  pip --version
+  (Should show version with Python 3.12 path)
+
+  python -c "import sys; print(sys.executable)"
+  (Should show Python 3.12 path)
+
+
+NEXT STEPS
+==========
+
+1. Choose Option 1 (Python Launcher) - it's easiest on Windows
+2. Follow the steps carefully
+3. Run: pip install -r requirements.txt
+4. Run: python ml_api.py
+5. In another terminal: python EmsDispatch.Backend or dotnet run
+
+If you get errors, show me the output and I'll fix it!

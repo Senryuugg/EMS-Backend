@@ -1,0 +1,33 @@
+QUICK PYTHON 3.12 SETUP - 3 MINUTES
+===================================
+
+RUN THESE COMMANDS IN ORDER:
+
+1. Check installed versions:
+   py --list-paths
+
+2. Navigate to project:
+   cd D:\EMS-Dispatcher-Application
+
+3. Create virtual environment with Python 3.12:
+   py -3.12 -m venv venv
+
+4. Activate it:
+   venv\Scripts\activate
+
+5. Verify Python 3.12:
+   python --version
+
+6. Install packages:
+   pip install -r requirements.txt
+
+7. Test ML API:
+   python ml_api.py
+
+DONE! If no errors, your Python 3.12 is set up correctly.
+
+If you see "py" not found:
+  - Try: python -m venv venv (uses current Python)
+  - Then: venv\Scripts\activate
+  - Check version: python --version
+  - If not 3.12, delete venv and repeat with py -3.12
