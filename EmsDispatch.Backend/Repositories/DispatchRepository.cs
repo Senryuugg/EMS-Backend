@@ -1,5 +1,6 @@
 using MongoDB.Driver;
 using EmsDispatch.Backend.Models;
+using EmsDispatch.Backend.Models.Enums;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -9,7 +10,7 @@ namespace EmsDispatch.Backend.Repositories
     {
         Task<Dispatch?> GetByIdAsync(string id);
         Task<List<Dispatch>> GetAllAsync();
-        Task<List<Dispatch>> GetByStatusAsync(string status);
+        Task<List<Dispatch>> GetByStatusAsync(DispatchStatus status);
         Task<List<Dispatch>> GetByAssignedDriverAsync(string driverId);
         Task<Dispatch> CreateAsync(Dispatch dispatch);
         Task<Dispatch> UpdateAsync(Dispatch dispatch);
@@ -36,7 +37,7 @@ namespace EmsDispatch.Backend.Repositories
             return await _dispatchCollection.Find(_ => true).ToListAsync();
         }
 
-        public async Task<List<Dispatch>> GetByStatusAsync(string status)
+        public async Task<List<Dispatch>> GetByStatusAsync(DispatchStatus status)
         {
             return await _dispatchCollection.Find(d => d.Status == status).ToListAsync();
         }

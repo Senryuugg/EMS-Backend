@@ -1,5 +1,6 @@
 using MongoDB.Driver;
 using EmsDispatch.Backend.Models;
+using EmsDispatch.Backend.Models.Enums;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -9,7 +10,7 @@ namespace EmsDispatch.Backend.Repositories
     {
         Task<User?> GetByIdAsync(string id);
         Task<User?> GetByEmailAsync(string email);
-        Task<List<User>> GetByRoleAsync(string role);
+        Task<List<User>> GetByRoleAsync(UserRole role);
         Task<List<User>> GetAllAsync();
         Task<User> CreateAsync(User user);
         Task<User> UpdateAsync(User user);
@@ -35,7 +36,7 @@ namespace EmsDispatch.Backend.Repositories
             return await _userCollection.Find(u => u.Email == email).FirstOrDefaultAsync();
         }
 
-        public async Task<List<User>> GetByRoleAsync(string role)
+        public async Task<List<User>> GetByRoleAsync(UserRole role)
         {
             return await _userCollection.Find(u => u.Role == role).ToListAsync();
         }

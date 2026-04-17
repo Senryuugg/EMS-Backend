@@ -1,6 +1,7 @@
 using MongoDB.Driver;
 using MongoDB.Bson;
 using EmsDispatch.Backend.Models;
+using EmsDispatch.Backend.Models.Enums;
 
 namespace EmsDispatch.Backend.Data
 {
@@ -97,10 +98,10 @@ namespace EmsDispatch.Backend.Data
                     Id = ObjectId.GenerateNewId().ToString(),
                     Email = "admin@ems.local",
                     PasswordHash = BCrypt.Net.BCrypt.HashPassword("AdminPassword123!"),
-                    Name = "System Admin",
-                    Role = "Admin",
+                    FullName = "System Admin",
+                    Role = UserRole.Admin,
                     Phone = "555-9001",
-                    Status = "Active",
+                    Status = UserStatus.Active,
                     CreatedAt = DateTime.UtcNow,
                     UpdatedAt = DateTime.UtcNow
                 },
@@ -109,10 +110,10 @@ namespace EmsDispatch.Backend.Data
                     Id = ObjectId.GenerateNewId().ToString(),
                     Email = "dispatcher@ems.local",
                     PasswordHash = BCrypt.Net.BCrypt.HashPassword("DispatchPass123!"),
-                    Name = "John Dispatcher",
-                    Role = "Dispatcher",
+                    FullName = "John Dispatcher",
+                    Role = UserRole.Dispatcher,
                     Phone = "555-9002",
-                    Status = "Active",
+                    Status = UserStatus.Active,
                     CreatedAt = DateTime.UtcNow,
                     UpdatedAt = DateTime.UtcNow
                 },
@@ -121,10 +122,10 @@ namespace EmsDispatch.Backend.Data
                     Id = ObjectId.GenerateNewId().ToString(),
                     Email = "operator@ems.local",
                     PasswordHash = BCrypt.Net.BCrypt.HashPassword("OperatorPass123!"),
-                    Name = "Jane Operator",
-                    Role = "EmsOperator",
+                    FullName = "Jane Operator",
+                    Role = UserRole.EmsOperator,
                     Phone = "555-9003",
-                    Status = "Active",
+                    Status = UserStatus.Active,
                     CreatedAt = DateTime.UtcNow,
                     UpdatedAt = DateTime.UtcNow
                 },
@@ -133,10 +134,10 @@ namespace EmsDispatch.Backend.Data
                     Id = ObjectId.GenerateNewId().ToString(),
                     Email = "driver1@ems.local",
                     PasswordHash = BCrypt.Net.BCrypt.HashPassword("DriverPass123!"),
-                    Name = "Mike Driver",
-                    Role = "Driver",
+                    FullName = "Mike Driver",
+                    Role = UserRole.Driver,
                     Phone = "555-9004",
-                    Status = "Active",
+                    Status = UserStatus.Active,
                     CreatedAt = DateTime.UtcNow,
                     UpdatedAt = DateTime.UtcNow
                 },
@@ -145,10 +146,10 @@ namespace EmsDispatch.Backend.Data
                     Id = ObjectId.GenerateNewId().ToString(),
                     Email = "driver2@ems.local",
                     PasswordHash = BCrypt.Net.BCrypt.HashPassword("DriverPass123!"),
-                    Name = "Sarah Driver",
-                    Role = "Driver",
+                    FullName = "Sarah Driver",
+                    Role = UserRole.Driver,
                     Phone = "555-9005",
-                    Status = "Active",
+                    Status = UserStatus.Active,
                     CreatedAt = DateTime.UtcNow,
                     UpdatedAt = DateTime.UtcNow
                 }
@@ -173,7 +174,7 @@ namespace EmsDispatch.Backend.Data
                     Id = ObjectId.GenerateNewId().ToString(),
                     RegistrationNumber = "AMB-001",
                     CurrentLocation = new Location { Latitude = 14.5995, Longitude = 120.9842 },
-                    Status = "Available",
+                    Status = DriverStatus.Available,
                     Capacity = 2,
                     Equipment = new List<string> { "Defibrillator", "Oxygen", "Stretcher", "Monitor" },
                     CreatedAt = DateTime.UtcNow,
@@ -184,7 +185,7 @@ namespace EmsDispatch.Backend.Data
                     Id = ObjectId.GenerateNewId().ToString(),
                     RegistrationNumber = "AMB-002",
                     CurrentLocation = new Location { Latitude = 14.5994, Longitude = 120.9855 },
-                    Status = "Available",
+                    Status = DriverStatus.Available,
                     Capacity = 2,
                     Equipment = new List<string> { "Defibrillator", "Oxygen", "Stretcher", "Monitor" },
                     CreatedAt = DateTime.UtcNow,
@@ -195,7 +196,7 @@ namespace EmsDispatch.Backend.Data
                     Id = ObjectId.GenerateNewId().ToString(),
                     RegistrationNumber = "AMB-003",
                     CurrentLocation = new Location { Latitude = 14.6010, Longitude = 120.9830 },
-                    Status = "Busy",
+                    Status = DriverStatus.Busy,
                     Capacity = 2,
                     Equipment = new List<string> { "Defibrillator", "Oxygen", "Stretcher", "Monitor" },
                     CreatedAt = DateTime.UtcNow,

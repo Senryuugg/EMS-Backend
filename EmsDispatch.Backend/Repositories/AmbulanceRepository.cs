@@ -1,5 +1,6 @@
 using MongoDB.Driver;
 using EmsDispatch.Backend.Models;
+using EmsDispatch.Backend.Models.Enums;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -14,7 +15,7 @@ namespace EmsDispatch.Backend.Repositories
         Task<Ambulance> CreateAsync(Ambulance ambulance);
         Task<Ambulance> UpdateAsync(Ambulance ambulance);
         Task DeleteAsync(string id);
-        Task<List<Ambulance>> GetByStatusAsync(string status);
+        Task<List<Ambulance>> GetByStatusAsync(DriverStatus status);
     }
 
     public class AmbulanceRepository : IAmbulanceRepository
@@ -38,7 +39,7 @@ namespace EmsDispatch.Backend.Repositories
 
         public async Task<List<Ambulance>> GetAvailableAsync()
         {
-            return await _ambulanceCollection.Find(a => a.Status == "Available").ToListAsync();
+            return await _ambulanceCollection.Find(a => a.Status == DriverStatus.Available).ToListAsync();
         }
 
         public async Task<Ambulance?> GetByDriverIdAsync(string driverId)
@@ -63,7 +64,7 @@ namespace EmsDispatch.Backend.Repositories
             await _ambulanceCollection.DeleteOneAsync(a => a.Id == id);
         }
 
-        public async Task<List<Ambulance>> GetByStatusAsync(string status)
+        public async Task<List<Ambulance>> GetByStatusAsync(DriverStatus status)
         {
             return await _ambulanceCollection.Find(a => a.Status == status).ToListAsync();
         }

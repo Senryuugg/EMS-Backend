@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using MongoDB.Bson;
+using MongoDB.Driver;
 using EmsDispatch.Backend.Models;
 using EmsDispatch.Backend.Services;
 using EmsDispatch.Backend.Utilities;
