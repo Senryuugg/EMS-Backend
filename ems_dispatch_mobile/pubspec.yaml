@@ -31,17 +31,12 @@ dependencies:
   
   # Secure storage
   flutter_secure_storage: ^8.0.0
+  shared_preferences: ^2.2.0
   
   # UI and animations
-  flutter_dotenv: ^5.1.0
   intl: ^0.18.1
   
-  # Database (local)
-  sqflite: ^2.3.0
-  path_provider: ^2.1.0
-  
   # JSON serialization
-  json_serializable: ^6.7.1
   json_annotation: ^4.8.1
   
   # Utilities
@@ -57,17 +52,3 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-
-  assets:
-    - assets/images/
-    - assets/icons/
-    - .env
-
-  fonts:
-    - family: Poppins
-      fonts:
-        - asset: assets/fonts/Poppins-Regular.ttf
-        - asset: assets/fonts/Poppins-Bold.ttf
-          weight: 700
-        - asset: assets/fonts/Poppins-SemiBold.ttf
-          weight: 600
