@@ -57,7 +57,10 @@ namespace EmsDispatch.Backend.Utilities
             if (dispatchData?.location?.latitude == null || dispatchData?.location?.longitude == null)
                 return "Patient location is required";
 
-            if (!IsValidCoordinates(dispatchData.location.latitude, dispatchData.location.longitude))
+            double lat = (double)dispatchData!.location!.latitude;
+            double lon = (double)dispatchData!.location!.longitude;
+
+            if (!IsValidCoordinates(lat, lon))
                 return "Invalid coordinates";
 
             if (dispatchData?.priority == null)
