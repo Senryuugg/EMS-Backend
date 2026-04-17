@@ -15,7 +15,7 @@ public interface IAuthService
 {
     Task<LoginResponseDto> LoginAsync(LoginRequestDto request);
     Task<UserDto> RegisterAsync(RegisterRequestDto request, UserRole role = UserRole.Driver);
-    Task<LoginResponseDto> RefreshTokenAsync(string refreshToken);
+    Task<LoginResponseDto> RefreshTokenAsync(string refreshToken); // Not yet implemented — requires DB-backed token storage
     Task LogoutAsync(string userId);
     Task<UserDto?> GetUserByIdAsync(string userId);
     Task<UserDto?> GetUserByEmailAsync(string email);
@@ -129,11 +129,9 @@ public class AuthService : IAuthService
         }
     }
 
-    public async Task<LoginResponseDto> RefreshTokenAsync(string refreshToken)
+    public Task<LoginResponseDto> RefreshTokenAsync(string refreshToken)
     {
-        // In a real implementation, store refresh tokens in DB and validate them
-        // For now, we'll just generate a new access token
-        // This is a simplified implementation
+        // Refresh token storage in DB is required for a full implementation.
         throw new NotImplementedException("Refresh token logic needs database storage");
     }
 

@@ -2,16 +2,17 @@ using MongoDB.Driver;
 using MongoDB.Bson;
 using EmsDispatch.Backend.Models;
 using EmsDispatch.Backend.Models.Enums;
+using EmsDispatch.Backend.Services;
 
 namespace EmsDispatch.Backend.Data
 {
     public static class MongoDbSeedData
     {
-        public static async Task SeedDefaultDataAsync(IMongoDatabase database)
+        public static async Task SeedDefaultDataAsync(MongoDbContext context)
         {
-            await SeedHospitalsAsync(database);
-            await SeedUsersAsync(database);
-            await SeedAmbulancesAsync(database);
+            await SeedHospitalsAsync(context.Database);
+            await SeedUsersAsync(context.Database);
+            await SeedAmbulancesAsync(context.Database);
         }
 
         private static async Task SeedHospitalsAsync(IMongoDatabase database)

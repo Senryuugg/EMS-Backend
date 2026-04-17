@@ -46,7 +46,7 @@ namespace EmsDispatch.Backend.Utilities
             return hasUpperCase && hasLowerCase && hasDigit && hasSpecialChar;
         }
 
-        public static string ValidateDispatchData(dynamic dispatchData)
+        public static string? ValidateDispatchData(dynamic dispatchData)
         {
             if (dispatchData?.patientInfo?.name == null)
                 return "Patient name is required";
@@ -66,7 +66,7 @@ namespace EmsDispatch.Backend.Utilities
             return null; // No validation errors
         }
 
-        public static string ValidateUserData(string email, string password, string name)
+        public static string? ValidateUserData(string email, string password, string name)
         {
             if (string.IsNullOrWhiteSpace(email))
                 return "Email is required";

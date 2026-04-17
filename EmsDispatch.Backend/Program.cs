@@ -6,15 +6,16 @@ using EmsDispatch.Backend.Configuration;
 using EmsDispatch.Backend.Services;
 using EmsDispatch.Backend.Data;
 using EmsDispatch.Backend.Middleware;
+using EmsDispatch.Backend.Hubs;
 
-var builder = WebApplicationBuilder.CreateBuilder(args);
-
-// Logging
+// Bootstrap logger for startup
 Log.Logger = new LoggerConfiguration()
     .MinimumLevel.Debug()
     .WriteTo.Console()
     .WriteTo.File("logs/ems-dispatch-.txt", rollingInterval: RollingInterval.Day)
     .CreateLogger();
+
+var builder = WebApplication.CreateBuilder(args);
 
 builder.Host.UseSerilog();
 
@@ -115,8 +116,7 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<MongoDbContext>();
-    var database = dbContext.Database;
-    await MongoDbSeedData.SeedDefaultDataAsync(database);
+    await MongoDbSeedData.SeedDefaultDataAsync(dbContext);
     Log.Information("Database seed data initialized");
 }
 

@@ -6,6 +6,7 @@ namespace EmsDispatch.Backend.Services;
 
 public interface IMongoDbContext
 {
+    IMongoDatabase Database { get; }
     IMongoCollection<User> Users { get; }
     IMongoCollection<Dispatch> Dispatches { get; }
     IMongoCollection<Driver> Drivers { get; }
@@ -18,6 +19,7 @@ public class MongoDbContext : IMongoDbContext
 {
     private readonly IMongoDatabase _database;
 
+    public IMongoDatabase Database => _database;
     public IMongoCollection<User> Users { get; }
     public IMongoCollection<Dispatch> Dispatches { get; }
     public IMongoCollection<Driver> Drivers { get; }
