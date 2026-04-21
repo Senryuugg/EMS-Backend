@@ -25,7 +25,9 @@ if (mongoSettings == null)
     throw new InvalidOperationException("MongoDB settings are not configured");
 
 builder.Services.AddSingleton(mongoSettings);
+// Register as BOTH the concrete class AND the interface so all services can resolve it
 builder.Services.AddSingleton<MongoDbContext>();
+builder.Services.AddSingleton<IMongoDbContext>(sp => sp.GetRequiredService<MongoDbContext>());
 
 // JWT Configuration
 var jwtKey = builder.Configuration["Jwt:SecretKey"];
@@ -120,13 +122,12 @@ using (var scope = app.Services.CreateScope())
     Log.Information("Database seed data initialized");
 }
 
-// Middleware
+// Middleware — Swagger always enabled (restrict in production via auth if needed)
+app.UseSwagger();
+app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "EMS Dispatch API v1"));
+
 if (app.Environment.IsDevelopment())
-{
     app.UseDeveloperExceptionPage();
-    app.UseSwagger();
-    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "EMS Dispatch API v1"));
-}
 
 app.UseMiddleware<GlobalExceptionHandlingMiddleware>();
 
@@ -143,5 +144,13 @@ app.MapHub<LocationHub>("/hubs/location");
 app.MapHealthChecks("/health");
 
 Log.Information("EMS Dispatch Backend started successfully");
-app.Run();
+
+try
+{
+    app.Run();
+}
+finally
+{
+    Log.CloseAndFlush();
+}
 
